@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.example.BlogMapper">
+  <!-- 基础格式参数 -->
+  <select id="findById" parameterType="int" resultType="com.wang.pojo.MyUser">
+	select * from MyUser where id = #{id}
+  </select>
+  
+  <!-- hashmap格式参数 -->
+  <select id="loginSelect" parameterType="hashmap" resultType="com.wang.pojo.MyUser">
+	select * from MyUser where username = #{username} and password = #{password}
+  </select>
+  
+  <!-- 对象格式参数 -->
+  <select id="login2" parameterType="com.wang.pojo.MyUser" resultType="com.wang.pojo.MyUser">
+	select * from MyUser where username = #{username} and password = #{password}
+  </select>
+  
+  <!-- list格式返回 -->
+  <select id="selectUserList" resultType="com.wang.pojo.MyUser">
+	select * from MyUser
+  </select>
+  
+  <!-- resultMap格式返回 -->
+  <resultMap id="myUserMap" type="com.wang.pojo.MyUser">
+  	<id property="id" column="id"></id>
+  	<result property="username" column="username"/>
+  	<result property="password" column="password"/>
+  </resultMap>
+  <select id="selectUsers" resultMap="myUserMap">
+  	select id, username, password from MyUser
+  </select>
+  
+  <!-- insert，这里parameterType用别名，定义在MyBatisConfig.xml里边的typeAlias -->
+  <insert id="insertUser" parameterType="MyUser" statementType="PREPARED"
+  	keyProperty="id" useGeneratedKeys="true">
+  		insert into myuser(username, password) values
+  		(#{username}, #{password})
+  </insert>
+  
+  <!-- update,这里parameterType用别名。同上 -->
+  <update id="updateUser" parameterType="MyUser">
+  	update myuser set username=#{username}, password=#{password} where id=#{id}
+  </update>
+  
+  <!-- 动态SQL，choose条件 -->
+  <select id="selectMyuserChoose" resultType="MyUser" parameterType="MyUser">
+  	select * from myuser where 1=1
+  	<choose>
+  		<when test="username != null">
+  			and username like #{username}
+  		</when>
+  		<!-- id格式为int，会构造时自动设置为0，不能用null判断 -->
+  		<when test="id != 0">
+  			and id = #{id}
+  		</when>
+  		<otherwise>
+  			and password is not null
+  		</otherwise>
+  	</choose>
+  </select>
+  
+  <!-- 动态SQL，where条件 -->
+  <select id="selectMyuserWhere" resultType="MyUser" parameterType="MyUser">
+  	select * from myuser
+  	<where>
+  		<if test="username != null">
+  			and username like #{username}
+  		</if>
+  		<!-- id格式为int，会构造时自动设置为0，不能用null判断 -->
+  		<if test="id != 0">
+  			and id = #{id}
+  		</if>
+  	</where>
+  </select>
+  
+  <!-- 动态SQL，set标记 -->
+  <update id="updateMyuserSet" parameterType="MyUser">
+  	update myuser
+  	<set>
+  		<if test="username != null">username = #{username},</if>
+  		<if test="password != null">password = #{password},</if>
+  	</set>
+  	where id = #{id}
+  </update>
+  
+  <!-- 动态SQL，trim标记 -->
+  <update id="updateMyuserTrim" parameterType="MyUser">
+  	update myuser
+  	<!-- prefix前缀，在前边添加 -->
+  	<!-- suffix后缀，在后边添加 -->
+  	<!-- prefixOverrides前缀改写，在前边删除 -->
+  	<!-- suffixOverrides后缀改写，在后边删除 -->
+  	<trim prefix="set" suffixOverrides="," suffix="where id=#{id}" >
+  		<if test="username != null and username != '' ">username = #{username},</if>
+  		<if test="password != null and password != '' ">password = #{password},</if>
+  	</trim>
+  </update>
+  
+  <!-- 动态SQL，foreach标记，循环查找 -->
+  <select id="selectMyuserForeach" resultType="MyUser" parameterType="list">
+  	select * from myuser
+  	<where>
+  		id in
+  		<foreach item="item" index="index" collection="list"
+  				open="(" separator="," close=")">
+  			#{item}
+  		</foreach>  		
+  	</where>
+  </select>
+  
+  <!-- 动态SQL，foreach标记，循环插入多条记录 -->
+  <insert id="insertMyuserForeach">
+  	insert into myuser (username, password) values
+  		<!-- index是list的下标，0,1,2,3... -->
+  		<foreach item="item" index="key" collection="list"
+  				open="" separator="," close="">
+  			(#{item.username}, #{item.password})
+  		</foreach> 
+  </insert>
+  
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.example.BlogMapper">
+	
+	<insert id="insertAuthor" parameterType="Author" statementType="PREPARED">
+			insert into author(userId, realName, IDCard) values
+			(#{user.id}, #{realName}, #{IDCard})
+	</insert>
+	
+	<!-- 关联查询,全属性赋值的resultMap -->
+	<resultMap type="Author" id="myUserMap2">
+		<id property="id" column="author.id"/>
+		<result property="realName" column="realName"/>
+		<result property="IDCard" column="IDCard"/>
+		<association property="user" column="userId" javaType="MyUser">
+			<id property="id" column="myuser.id"/>
+			<result property="username" column="username"/>
+			<result property="password" column="password"/>
+		</association>
+	</resultMap>
+	<select id="selectAuthorJoin" resultMap="myUserMap2">
+			select * from author inner join myuser
+			on myuser.id = author.userId
+	</select>
+	
+	<!-- 构造函数方式 -->
+	<resultMap type="Author" id="myUserMapByConstruction">
+		<id property="id" column="author.id"/>
+		<result property="realName" column="realName"/>
+		<result property="IDCard" column="IDCard"/>
+		<association property="user" column="userId" javaType="MyUser">
+			<constructor>
+				<arg column="username" javaType="String"/>
+				<arg column="password" javaType="String"/>
+			</constructor>
+		</association>
+	</resultMap>
+	<select id="selectAuthorJoin2" resultMap="myUserMapByConstruction">
+			select * from author inner join myuser
+			on myuser.id = author.userId
+	</select>
+	
+	<!-- 子查询，通过association里边的selecct指定子查询的id（在子查询的.xml里边） -->
+	<resultMap type="Author" id="myUserSubMap">
+		<id property="id" column="author.id"/>
+		<result property="realName" column="realName"/>
+		<result property="IDCard" column="IDCard"/>
+		<association property="user" column="userId" 
+			javaType="MyUser" select="findById">
+		</association>
+	</resultMap>
+	<select id="selectSubAuthor" resultMap="myUserSubMap">
+			select * from author
+	</select>
+</mapper>
