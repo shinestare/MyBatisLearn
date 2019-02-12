@@ -15,7 +15,7 @@ import com.wang.pojo.MyReader;
 import com.wang.pojo.MyUser;
 
 /**
- * ¶¯Ì¬SQL
+ * åŠ¨æ€SQL
  * @author wang
  *
  */
@@ -36,15 +36,15 @@ public class TestDynamicSQL {
 		session = sqlMapper.openSession();
 		try {
 			/*MyReader myReader = new MyReader();
-			myReader.setMoney(200);	// É¾³ı´ËĞĞ£¬¼´²»ÉèÖÃmoney£¬´ËÊ±ÖµÎªnull£¬²é³öÀ´µÄÊÇÈ«²¿µÄ
+			myReader.setMoney(200);	// åˆ é™¤æ­¤è¡Œï¼Œå³ä¸è®¾ç½®moneyï¼Œæ­¤æ—¶å€¼ä¸ºnullï¼ŒæŸ¥å‡ºæ¥çš„æ˜¯å…¨éƒ¨çš„
 			
 			List<MyReader> list = session.selectList("selectReaderMoney", myReader);
 			
 			for (MyReader oneReader : list) {
-				System.out.println("²éÑ¯µ½µÄReaderID=" + oneReader.getId());
+				System.out.println("æŸ¥è¯¢åˆ°çš„ReaderID=" + oneReader.getId());
 			}*/
 			
-			/*// ¶¯Ì¬SQL£¬chooseÌõ¼ş
+			/*// åŠ¨æ€SQLï¼Œchooseæ¡ä»¶
 			MyUser myUser = new MyUser();
 //			myUser.setUsername("%user%");	
 //			myUser.setId(10);
@@ -52,10 +52,10 @@ public class TestDynamicSQL {
 			List<MyUser> list = session.selectList("selectMyuserChoose", myUser);
 			
 			for (MyUser oneUser : list) {
-				System.out.println("²éÑ¯µ½µÄUserID=" + oneUser.getId() + ",ÓÃ»§Ãû=" + oneUser.getUsername());
+				System.out.println("æŸ¥è¯¢åˆ°çš„UserID=" + oneUser.getId() + ",ç”¨æˆ·å=" + oneUser.getUsername());
 			}*/
 			
-			/*// ¶¯Ì¬SQL£¬whereÌõ¼ş
+			/*// åŠ¨æ€SQLï¼Œwhereæ¡ä»¶
 			MyUser myUser = new MyUser();
 			myUser.setUsername("%user%");	
 			myUser.setId(10);
@@ -63,10 +63,10 @@ public class TestDynamicSQL {
 			List<MyUser> list = session.selectList("selectMyuserWhere", myUser);
 			
 			for (MyUser oneUser : list) {
-				System.out.println("²éÑ¯µ½µÄUserID=" + oneUser.getId() + ",ÓÃ»§Ãû=" + oneUser.getUsername());
+				System.out.println("æŸ¥è¯¢åˆ°çš„UserID=" + oneUser.getId() + ",ç”¨æˆ·å=" + oneUser.getUsername());
 			}*/
 			
-			/*// ¶¯Ì¬SQL£¬set±ê¼Ç
+			/*// åŠ¨æ€SQLï¼Œsetæ ‡è®°
 			MyUser myUser = new MyUser();
 			myUser.setId(10);
 			myUser.setUsername("newusername");	
@@ -75,7 +75,7 @@ public class TestDynamicSQL {
 			session.update("updateMyuserSet", myUser);
 			session.commit();*/
 			
-			/*// ¶¯Ì¬SQL£¬trim±ê¼Ç
+			/*// åŠ¨æ€SQLï¼Œtrimæ ‡è®°
 			MyUser myUser = new MyUser();
 			myUser.setId(10);
 			myUser.setUsername("username");	
@@ -84,17 +84,17 @@ public class TestDynamicSQL {
 			session.update("updateMyuserTrim", myUser);
 			session.commit();*/
 			
-			/*// ¶¯Ì¬SQL£¬foreach±ê¼Ç,²éÑ¯¶à¸ö¼ÇÂ¼
+			/*// åŠ¨æ€SQLï¼Œforeachæ ‡è®°,æŸ¥è¯¢å¤šä¸ªè®°å½•
 			List<Integer> ids = new ArrayList();
 			ids.add(1);
 			ids.add(2);
 			ids.add(10);
 			List<MyUser> list = session.selectList("selectMyuserForeach", ids);
 			for (MyUser oneUser : list) {
-				System.out.println("²éÑ¯µ½µÄUserID=" + oneUser.getId() + ",ÓÃ»§Ãû=" + oneUser.getUsername());
+				System.out.println("æŸ¥è¯¢åˆ°çš„UserID=" + oneUser.getId() + ",ç”¨æˆ·å=" + oneUser.getUsername());
 			}*/
 			
-			// ¶¯Ì¬SQL£¬foreach±ê¼Ç,²éÑ¯¶à¸ö¼ÇÂ¼
+			// åŠ¨æ€SQLï¼Œforeachæ ‡è®°,æŸ¥è¯¢å¤šä¸ªè®°å½•
 			List<MyUser> users = new ArrayList();
 			MyUser user1 = new MyUser("user1", "pass1");
 			MyUser user2 = new MyUser("user2", "pass2");

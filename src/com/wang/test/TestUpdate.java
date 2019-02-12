@@ -30,14 +30,14 @@ public class TestUpdate {
 		session = sqlMapper.openSession();
 		try {
 			/*
-			// insert测试
+			// insert娴嬭瘯
 			MyUser myUser = new MyUser();
 			myUser.setUsername("user001");
 			myUser.setPassword("m001");
 			session.insert("insertUser", myUser);
 			session.commit();*/
 			
-			/*// update测试
+			/*// update娴嬭瘯
 			MyUser updateUser = new MyUser();
 			updateUser.setUsername("updateUser");
 			updateUser.setPassword("666");
@@ -45,7 +45,7 @@ public class TestUpdate {
 			session.update("updateUser", updateUser);
 			session.commit();*/
 			
-			// delete测试,用注解实现的方式，先实现接口
+			// delete娴嬭瘯,鐢ㄦ敞瑙ｅ疄鐜扮殑鏂瑰紡锛屽厛瀹炵幇鎺ュ彛
 			MyUserMapInterface user = session.getMapper(MyUserMapInterface.class);
 			user.deleteUser(3);
 			session.commit();

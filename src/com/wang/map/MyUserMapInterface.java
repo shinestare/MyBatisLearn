@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Delete;
 
 
 public interface MyUserMapInterface {
-	// 使用注解方式
+	// 浣跨敤娉ㄨВ鏂瑰紡
 	@Delete("delete from myuser where id = #{id}")
 	public void deleteUser(int id);
 }

@@ -12,7 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.wang.pojo.Author;
 
 /**
- * ¹ØÁª²éÑ¯
+ * å…³è”æŸ¥è¯¢
  * @author wang
  *
  */
@@ -32,12 +32,12 @@ public class TestAssociation {
 		SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder().build(reader);
 		session = sqlMapper.openSession();
 		try {
-//			List<Author> list = session.selectList("selectAuthorJoin");		// ²ÎÊı·½Ê½
-//			List<Author> list = session.selectList("selectAuthorJoin2");	// ¹¹Ôìº¯Êı·½Ê½
-			List<Author> list = session.selectList("selectSubAuthor");	// ×Ó²éÑ¯
+//			List<Author> list = session.selectList("selectAuthorJoin");		// å‚æ•°æ–¹å¼
+//			List<Author> list = session.selectList("selectAuthorJoin2");	// æ„é€ å‡½æ•°æ–¹å¼
+			List<Author> list = session.selectList("selectSubAuthor");	// å­æŸ¥è¯¢
 			for (Author author : list) {
-				System.out.println("ÕæÊµĞÕÃû£º" + author.getRealName() + 
-						"£¬¶ÔÓ¦ÓÃ»§Ãû£º" + author.getUser().getUsername());
+				System.out.println("çœŸå®å§“åï¼š" + author.getRealName() + 
+						"ï¼Œå¯¹åº”ç”¨æˆ·åï¼š" + author.getUser().getUsername());
 			}
 		
 		} catch (Exception e) {

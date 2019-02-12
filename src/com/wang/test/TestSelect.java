@@ -30,35 +30,35 @@ public class TestSelect {
 		session = sqlMapper.openSession();
 		try {
 			/*
-			// hashmap¸ñÊ½²ÎÊı
+			// hashmapæ ¼å¼å‚æ•°
 			HashMap<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("username", "helloworld");
 			paramMap.put("password", "a");
 			MyUser myUser = session.selectOne("loginSelect", paramMap);
 			if (myUser != null) {
-				System.out.println("µÇÂ½³É¹¦");
+				System.out.println("ç™»é™†æˆåŠŸ");
 			}*/
 			
-			/*// ¶ÔÏó¸ñÊ½²ÎÊı
+			/*// å¯¹è±¡æ ¼å¼å‚æ•°
 			MyUser user = new MyUser();
 			user.setUsername("helloworld");
 			user.setPassword("a");
 			MyUser temp = session.selectOne("login2", user);
 			if (temp != null) {
-				System.out.println("2³É¹¦");
+				System.out.println("2æˆåŠŸ");
 			}
 			*/
 			
-			/*// list¶ÔÏó¸ñÊ½·µ»Ø
+			/*// listå¯¹è±¡æ ¼å¼è¿”å›
 			List<MyUser> list = session.selectList("selectUserList");
 			for (MyUser user : list) {
-				System.out.println("ÓÃ»§Ãû= " + user.getUsername());
+				System.out.println("ç”¨æˆ·å= " + user.getUsername());
 			}*/
 			
-			// resultMap¸ñÊ½·µ»Ø
+			// resultMapæ ¼å¼è¿”å›
 			List<MyUser> list = session.selectList("selectUsers");
 			for (MyUser user : list) {
-				System.out.println("ÓÃ»§Ãû= " + user.getUsername());
+				System.out.println("ç”¨æˆ·å= " + user.getUsername());
 			}
 			
 		} catch (Exception e) {

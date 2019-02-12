@@ -23,27 +23,27 @@ public class TestTransaction {
 		}
 		
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
-		session = factory.openSession(false);	// 关闭自动提交
+		session = factory.openSession(false);	// 鍏抽棴鑷姩鎻愪氦
 		
 		try {
 			MyUser user = new MyUser();
 			user.setUsername("useruser");
 			user.setPassword("pass");
 			session.insert("insertUser", user);
-			System.out.println("新加入的user id= " + user.getId());
+			System.out.println("鏂板姞鍏ョ殑user id= " + user.getId());
 			
 			Author auth = new Author();
 			auth.setUser(user);
 			auth.setRealName("realnamea");
 //			auth.setIDCard("123");
 			session.insert("insertAuthor", auth);
-			session.commit();	// 提交事务
+			session.commit();	// 鎻愪氦浜嬪姟
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			session.rollback();	// 回滚事务
+			session.rollback();	// 鍥炴粴浜嬪姟
 		} finally {
-			session.close();	// 关闭session
+			session.close();	// 鍏抽棴session
 		}
 		
 	}

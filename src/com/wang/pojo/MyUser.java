@@ -5,12 +5,12 @@ public class MyUser {
 	private String username;
 	private String password;
 	
-	// 构造函数，为了关联查询的时候构造函数方式用
+	// 鏋勯�犲嚱鏁帮紝涓轰簡鍏宠仈鏌ヨ鐨勬椂鍊欐瀯閫犲嚱鏁版柟寮忕敤
 	public MyUser() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	// 构造函数，为了关联查询的时候构造函数方式用
+	// 鏋勯�犲嚱鏁帮紝涓轰簡鍏宠仈鏌ヨ鐨勬椂鍊欐瀯閫犲嚱鏁版柟寮忕敤
 	public MyUser(String username, String password) {
 		super();
 		this.username = username;
