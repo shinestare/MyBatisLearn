@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+	<!-- 属性 -->
+	<properties resource="db.properties"/>
+	
+	<!-- settings设置详见《Spring+MyBatis企业应用实战P148-ch9.2.3》 -->
 	<!-- 设置懒加载开启，默认不开启 -->
 	<settings>
 		<setting name="lazyLoadingEnabled" value="true"/>
@@ -15,24 +19,59 @@
   	<typeAlias alias="MyUser" type="com.wang.pojo.MyUser"/>
   	<typeAlias alias="Author" type="com.wang.pojo.Author"/>
   	<typeAlias alias="NewReader" type="com.wang.pojo.MyReader"/>
+  	<typeAlias alias="NewUser" type="com.wang.pojo.NewUser"/>
   </typeAliases>
   
+  <!-- 环境配置，即连接的数据库，environment里边是不同数据库的连接参数环境，environments里边的default是选择的环境 -->
   <environments default="development">
     <environment id="development">
+      <!-- 指定事务管理类型，type="JDBC"指直接简单实用了JDBC的提交和回滚设置 -->
       <transactionManager type="JDBC"/>
+      <!-- dataSource指数据库源配置，POOLED是JDBC连接对象的数据源连接池的实现。 -->
       <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <!-- <property name="driver" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/test"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value="root"/> -->
+        
+        <!-- 在CLASSPATH中增加一个db.properties的java属性文件，并配置相应的参数值，并在<properties />中设置resource后，
+        		其中的属性可以在整个配置文件中使用来替换需要动态配置的属性值 -->
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>	
+        
+        <!-- POOLED的数据源可以有更多的属性来配置 -->
+        <!-- 在任意时间可以存在的活动（也就是正在使用 ）连接数量，默认值10-->
+        <!-- <property name="poolMaximumActiveConnections" value="10"/> -->
+        <!-- 任意时间可能存在的空闲连接数 -->
+        <!-- <property name="poolMaximumIdleConnections" value="100"/> -->
+        <!-- 在被强制返回之前，池中连接被检出—（check out）时间，默认值为20000毫秒，即20秒 -->
+        <!-- <property name="poolMaximumCheckoutTime" value="20000"/> -->
+        <!-- 这是一个底层设置，如果获取连接话费相当长的时间，它会给连接池打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直安静地失败），默认值20000毫秒，即20秒 -->
+        <!-- <property name="poolTimeToWait" value="20000"/> -->
+        <!-- 发送到数据库的侦测查询，用来检验连接是否处于正常工作秩序中并准备接受请求。默认是“NO PING QUERY SET”,这会导致多数数据库驱动失败时带有一个恰当的错误信息 -->
+        <!-- <property name="poolPingQuery" value="NO PING QUERY SET"/> -->
+        <!-- 是否启用侦测查询，若开启，也必须使用一个可执行的SQL语句设置poolPingQuery属性（最好是一个非常快的SQL），默认值是false -->
+        <!-- <property name="poolPingEnabled" value="false"/> -->
+        <!-- 配置poolPingQuery的使用频度，这可以被设置成匹配具体的数据库连接超时时间，来避免不必要的侦测，默认值为0（即所有连接每一时刻都被侦测，当然仅当poolPingEnabled为true时适用） -->
+        <!-- <property name="poolPingConnectionsNotUsedFor" value="100"/> -->
       </dataSource>
     </environment>
   </environments>
   
+  <!-- mappers告诉MyBatis去哪里找持久化类的映射文件 -->
   <mappers>
+  	<!-- 使用类路径查找资源文件 -->
   	<mapper resource="com/wang/map/myUser.xml"></mapper>
+  	<!-- 使用接口类 -->
   	<mapper class="com.wang.map.MyUserMapInterface"/>
   	<mapper resource="com/wang/map/author.xml"/>
   	<mapper resource="com/wang/map/myReader.xml"/>
+  	<mapper resource="com/wang/map/newUser.xml"/>
+  	<!-- 使用本地文件 -->
+  	<!-- <mapper url="file:///c:/mapper/UserMapper.xml"/> -->
+  	<!-- 使用包名 -->
+  	<!-- <package name="com.wang.map"/> -->
   </mappers>
 </configuration>
