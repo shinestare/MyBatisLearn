@@ -1,6 +1,8 @@
 package com.wang.dbutils;
 
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -33,6 +35,7 @@ public class MySqlSessionFactory {
 		return sqlSessionFactory;
 	}
 	
+	// 测试用
 	public static void main(String[] args) {
 		// 获得Session对象
 		SqlSession session = MySqlSessionFactory.getSqlSession();
@@ -55,7 +58,21 @@ public class MySqlSessionFactory {
 		session.update("com.wang.test.NewMapper.updateUser", user);*/
 		
 		// 删除id=1的NewUser对象
-		session.delete("com.wang.test.NewMapper.deleteUser", 1);
+		/*session.delete("com.wang.test.NewMapper.deleteUser", 1);*/
+		
+		// 测试返回ResultMap，查询user表的所有数据，返回List集合，集合中的每个元素都是Map
+		/*List<Map<String, Object>> list = session.selectList("com.wang.test.NewMapper.selectNewuserMap");
+		// 遍历List集合，打印每一个Map对象
+		for(Map<String, Object> row : list) {
+			System.out.println(row);
+		}*/
+		
+		// 查询user表所有数据，返回List集合，集合中的每个元素都是一个Map
+		List<NewUser> userList = session.selectList("com.wang.test.NewMapper.selectNewuserMap2");
+		// 遍历List集合，打印每个Map对象
+		for (NewUser user : userList) {
+			System.out.println(user);
+		}
 		
 		// 提交事务
 		session.commit();

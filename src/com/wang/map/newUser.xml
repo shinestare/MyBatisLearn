@@ -49,6 +49,25 @@
 		delete from user where id=#{id}
 	</delete>
 	
+	<!-- ResultMaps -->
+	<select id="selectNewuserMap" resultType="map">
+		select * from user
+	</select>
+	
+	<!-- ResultMap，使用POJOs作为领域模型描述数据。type表示resultMap实际返回的类型。 -->
+	<resultMap type="com.wang.pojo.NewUser" id="userResultMap">
+		<!-- resultMap的子元素id，表示数据库的主键，其中column属性表示数据库表的列名，property表示数据库映射到返回类型的属性。 -->
+		<id property="id" column="id" />
+		<!-- resultMap的子元素result，表示数据库表的普通列，其中column属性表示数据库表的列名，property表示数据库列映射搭配返回类型的属性 -->
+		<result property="username" column="username" />
+		<!-- <result property="age" column="age" /> -->
+		<result property="password" column="password" />
+	</resultMap>
+	<!-- resultMap = "userResultMap"表示引用上面的resultMap进行数据库表和返回对象类型的映射 -->
+	<select id="selectNewuserMap2" resultMap="userResultMap">
+		select * from user
+	</select>
+	
 	<!-- 3、sql元素 -->
 	<!-- sql元素可以被用来定义可重用的SQL代码段，可以包含在其他语句中。它可以被静态地（在加载参数时）参数化。不同的属性值通过包含的实例发生变化。例如： -->
 	<!--  -->
